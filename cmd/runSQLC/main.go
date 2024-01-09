@@ -26,14 +26,14 @@ func main() {
 	// 	panic(err)
 	// }
 
-	// categories, err := queries.ListCategories(ctx)
-	// if err != nil {
-	// 	panic(err)
-	// }
+	categories, err := queries.ListCategories(ctx)
+	if err != nil {
+		panic(err)
+	}
 
-	// for _, category := range categories {
-	// 	println(category.ID, category.Name, category.Description.String)
-	// }
+	for _, category := range categories {
+		println(category.ID, category.Name, category.Description.String)
+	}
 	// err = queries.UpdateCategory(ctx, db.UpdateCategoryParams{
 	// 	ID:          "fec2f257-a066-4dca-be5e-3ae23857a821",
 	// 	Name:        "Backend Update",
@@ -55,16 +55,16 @@ func main() {
 	// 	println(category.ID, category.Name, category.Description.String)
 	// }
 
-	err = queries.DeleteCategory(ctx, "fec2f257-a066-4dca-be5e-3ae23857a821")
-	categories, err := queries.ListCategories(ctx)
-	if err != nil {
-		panic(err)
-	}
-	if err != nil {
-		panic(err)
-	}
+	// err = queries.DeleteCategory(ctx, "fec2f257-a066-4dca-be5e-3ae23857a821")
+	// categories, err := queries.ListCategories(ctx)
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	for _, category := range categories {
-		println(category.ID, category.Name, category.Description.String)
-	}
+	// for _, category := range categories {
+	// 	println(category.ID, category.Name, category.Description.String)
+	// }
 }
