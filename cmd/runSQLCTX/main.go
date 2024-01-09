@@ -7,7 +7,6 @@ import (
 
 	"github.com/danielzinhors/go-migrate/internal/db"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/google/uuid"
 )
 
 type CourseDB struct {
@@ -88,63 +87,32 @@ func main() {
 		panic(err)
 	}
 	defer dbConn.Close()
-	//queries := db.New(dbConn)
-	courseArgs := CourseParams{
-		ID:          uuid.New().String(),
-		Name:        "GO",
-		Description: sql.NullString{String: "Go Course", Valid: true},
-		Price:       10.95,
-	}
-	categoryArgs := CategoryParams{
-		ID:          uuid.New().String(),
-		Name:        "Backend",
-		Description: sql.NullString{String: "Backend Course", Valid: true},
-	}
-	courseDb := NewCourseDb(dbConn)
-	err = courseDb.CreateCourseAndCategory(ctx, categoryArgs, courseArgs)
+	queries := db.New(dbConn)
+
+	// courseArgs := CourseParams{
+	// 	ID:          uuid.New().String(),
+	// 	Name:        "GO",
+	// 	Description: sql.NullString{String: "Go Course", Valid: true},
+	// 	Price:       10.95,
+	// }
+	// categoryArgs := CategoryParams{
+	// 	ID:          uuid.New().String(),
+	// 	Name:        "Backend",
+	// 	Description: sql.NullString{String: "Backend Course", Valid: true},
+	// }
+	// courseDb := NewCourseDb(dbConn)
+	// err = courseDb.CreateCourseAndCategory(ctx, categoryArgs, courseArgs)
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	courses, err := queries.ListCourses(ctx)
 	if err != nil {
 		panic(err)
 	}
 
-	// categories, err := queries.ListCategories(ctx)
-	// if err != nil {
-	// 	panic(err)
-	// }
-
-	// for _, category := range categories {
-	// 	println(category.ID, category.Name, category.Description.String)
-	// }
-	// err = queries.UpdateCategory(ctx, db.UpdateCategoryParams{
-	// 	ID:          "fec2f257-a066-4dca-be5e-3ae23857a821",
-	// 	Name:        "Backend Update",
-	// 	Description: sql.NullString{String: "Backend description update", Valid: true},
-	// })
-	// if err != nil {
-	// 	panic(err)
-	// }
-
-	// categories, err := queries.ListCategories(ctx)
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// if err != nil {
-	// 	panic(err)
-	// }
-
-	// for _, category := range categories {
-	// 	println(category.ID, category.Name, category.Description.String)
-	// }
-
-	// err = queries.DeleteCategory(ctx, "fec2f257-a066-4dca-be5e-3ae23857a821")
-	// categories, err := queries.ListCategories(ctx)
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// if err != nil {
-	// 	panic(err)
-	// }
-
-	// for _, category := range categories {
-	// 	println(category.ID, category.Name, category.Description.String)
-	// }
+	for _, course := range courses {
+		fmt.Printf("Course Nome: %s e id: %s descricao: %s é da categoria: %s e custa R$ %f",
+			course.Name, course.ID, course.Description.String, course.CategoryName, course.Price)
+	}
 }
